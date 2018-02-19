@@ -12,17 +12,9 @@ public class Application {
     private static final Logger LOG = LoggerFactory.getLogger(Application.class);
 
     public static void main(String[] args) {
-        if (args.length < 2) {
-            throw new IllegalArgumentException("BotUsername and BotToken should be filled");
-        }
+        validateArgs(args);
         String botUsername = args[0];
         String botToken = args[1];
-
-        if (botUsername == null ||
-                botToken == null) {
-            throw new IllegalArgumentException("BotUsername and BotToken should be filled");
-        }
-
         ApiContextInitializer.init();
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
         try {
@@ -32,5 +24,15 @@ public class Application {
             LOG.error(e.getMessage(), e);
         }
         LOG.info("bot has been started");
+    }
+
+    private static void validateArgs(String[] args) {
+        if (args.length < 2) {
+            throw new IllegalArgumentException("BotUsername and BotToken should be filled");
+        }
+        if (args[0] == null ||
+                args[1] == null) {
+            throw new IllegalArgumentException("BotUsername and BotToken should be filled");
+        }
     }
 }
