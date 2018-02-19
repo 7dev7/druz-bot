@@ -22,7 +22,6 @@ public class QuestionsBot extends TelegramLongPollingCommandBot {
 
     private void registerHandlers() {
         register(new RandomQuestionCommand());
-
         registerDefaultAction((absSender, message) -> {
             SendMessage commandUnknownMessage = new SendMessage();
             commandUnknownMessage.setChatId(message.getChatId());
@@ -33,11 +32,6 @@ public class QuestionsBot extends TelegramLongPollingCommandBot {
                 LOG.error(e.getMessage(), e);
             }
         });
-    }
-
-    @Override
-    public String getBotToken() {
-        return config.getBotToken();
     }
 
     @Override
@@ -57,7 +51,8 @@ public class QuestionsBot extends TelegramLongPollingCommandBot {
         }
     }
 
-    public Config getConfig() {
-        return config;
+    @Override
+    public String getBotToken() {
+        return config.getBotToken();
     }
 }
