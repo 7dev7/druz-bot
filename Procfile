@@ -1,1 +1,1 @@
-worker: java $JAVA_OPTS -jar build/libs/questions-bot-1.0-SNAPSHOT.jar $BOT_USERNAME $BOT_TOKEN
+worker: java -jar build/libs/questions-bot-1.0-SNAPSHOT.jar $BOT_USERNAME $BOT_TOKEN

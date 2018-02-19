@@ -12,6 +12,9 @@ public class Application {
     private static final Logger LOG = LoggerFactory.getLogger(Application.class);
 
     public static void main(String[] args) {
+        if (args.length < 2) {
+            throw new IllegalArgumentException("BotUsername and BotToken should be filled");
+        }
         String botUsername = args[0];
         String botToken = args[1];
 
