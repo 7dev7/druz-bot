@@ -1,4 +1,4 @@
-package com.dev.model;
+package com.dev.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -15,6 +15,9 @@ public class Question {
 
     @JsonProperty("Answer")
     private String answer;
+
+    @JsonProperty("PassCriteria")
+    private String passCriteria;
 
     @JsonProperty("Authors")
     private String authors;
@@ -46,6 +49,7 @@ public class Question {
                 "questionId=" + questionId +
                 ", question='" + question + '\'' +
                 ", answer='" + answer + '\'' +
+                ", passCriteria='" + passCriteria + '\'' +
                 ", authors='" + authors + '\'' +
                 ", sources='" + sources + '\'' +
                 ", comments='" + comments + '\'' +

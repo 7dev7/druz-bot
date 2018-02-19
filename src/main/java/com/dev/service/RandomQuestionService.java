@@ -1,6 +1,6 @@
 package com.dev.service;
 
-import com.dev.model.Question;
+import com.dev.domain.model.Question;
 import com.dev.service.remote.QuestionDBConnection;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
