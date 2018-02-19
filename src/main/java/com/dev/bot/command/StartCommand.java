@@ -17,7 +17,7 @@ public class StartCommand extends GenericCommand {
     @Override
     public void execute(AbsSender absSender, User user, Chat chat, String[] arguments) {
         userManager.setUserState(user.getId(), State.NONE);
-        String greetings = String.format("Привет, %s %s!\n", user.getFirstName(), user.getLastName());
+        String greetings = String.format("Приветствую, %s %s!\n\n Если хочешь хорошенько подумать жмакни /random_question", user.getFirstName(), user.getLastName());
         sendMessage(absSender, chat, greetings);
     }
 }

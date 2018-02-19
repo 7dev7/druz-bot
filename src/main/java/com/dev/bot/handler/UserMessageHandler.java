@@ -35,7 +35,7 @@ public class UserMessageHandler {
                 case WAIT_FOR_NEXT_QUESTION:
                     return handleWaitQuestion(message, userId);
                 case NONE:
-                    return "Для получения случайного вопроса выполните команду /random_question";
+                    return "Слабо ответить на мой вопрос? /random_question";
                 default:
                     return "";
             }
@@ -52,7 +52,7 @@ public class UserMessageHandler {
             return QuestionFormatter.formatQuestion(question);
         } else {
             userManager.setUserState(userId, State.NONE);
-            return "Ясненько. Для получения следующего вопроса выполните команду /random_question";
+            return "Ясненько. Если захочешь еще поиграть только скажи мне /random_question";
         }
     }
 }

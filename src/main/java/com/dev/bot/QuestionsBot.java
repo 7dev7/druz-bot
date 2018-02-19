@@ -30,7 +30,7 @@ public class QuestionsBot extends TelegramLongPollingCommandBot {
         registerDefaultAction((absSender, message) -> {
             SendMessage commandUnknownMessage = new SendMessage();
             commandUnknownMessage.setChatId(message.getChatId());
-            commandUnknownMessage.setText(String.format("The command '%s' is not known by this bot", message.getText()));
+            commandUnknownMessage.setText(String.format("Даже я не знаю что '%s' значит", message.getText()));
             try {
                 absSender.execute(commandUnknownMessage);
             } catch (TelegramApiException e) {

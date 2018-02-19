@@ -9,8 +9,8 @@ import org.telegram.telegrambots.api.objects.Message;
 
 public class AnswerService {
     private static final Logger LOG = LoggerFactory.getLogger(AnswerService.class);
-    private static final String WIN_MSG = "Правильно! Ответ: %s\nХотите следующий вопрос?";
-    private static final String LOSE_MSG = "Увы, этот ответ не правильный :(\n\nОтвет: %s\n\nХотите следующий вопрос?";
+    private static final String WIN_MSG = "А ты неплох! Ответ: %s\nХочешь еще?";
+    private static final String LOSE_MSG = "Эх, не в этот раз.\n\nОтвет: %s\n\nХочешь еще?";
 
     public String handleAnswer(Message message) {
         UserManager userManager = UserManager.getInstance();
