@@ -3,7 +3,7 @@ package com.dev.bot;
 import com.dev.bot.command.RandomQuestionCommand;
 import com.dev.bot.command.StartCommand;
 import com.dev.bot.handler.UserMessageHandler;
-import com.dev.config.Config;
+import com.dev.domain.model.config.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.api.methods.send.SendMessage;

@@ -38,3 +38,7 @@ jar {
 task stage {
     dependsOn build
 }
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
