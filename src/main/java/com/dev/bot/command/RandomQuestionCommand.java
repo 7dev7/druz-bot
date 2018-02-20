@@ -23,7 +23,8 @@ public class RandomQuestionCommand extends GenericCommand {
     public void execute(AbsSender absSender, User user, Chat chat, String[] arguments) {
         if (State.ANSWERING.equals(userManager.getUserState(user.getId()))) {
             Question currentQuestion = userManager.getUserCurrentQuestion(user.getId());
-            String restrictMsg = String.format("Какой быстрый. Ты еще не ответил на предыдущий вопрос:\n\n%s", QuestionFormatter.formatQuestion(currentQuestion));
+            String restrictMsg = String.format("Какой быстрый. Ты еще не ответил на предыдущий вопрос:\n\n%s",
+                    QuestionFormatter.formatQuestion(currentQuestion));
             sendMessage(absSender, chat, restrictMsg);
             return;
         }

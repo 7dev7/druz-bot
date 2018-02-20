@@ -17,7 +17,7 @@ public class UserMessageHandler {
     private final UserManager userManager;
     private final AnswerService answerService;
     private final RandomQuestionService randomQuestionService;
-    private final Set<String> agreeWords = new HashSet<>(Arrays.asList("да", "д", "давай", "yes", "y", "конечно"));
+    private final Set<String> agreeWords = new HashSet<>(Arrays.asList("да", "д", "давай", "yes", "y", "конечно", "go", "g"));
 
     public UserMessageHandler() {
         this.userManager = UserManager.getInstance();
@@ -36,8 +36,6 @@ public class UserMessageHandler {
                     return handleWaitQuestion(message, userId);
                 case NONE:
                     return "Слабо ответить на мой вопрос? /random_question";
-                default:
-                    return "";
             }
         }
         return "";

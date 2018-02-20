@@ -28,17 +28,8 @@ public class Question {
     @JsonProperty("Comments")
     private String comments;
 
-    @JsonProperty("tourTitle")
-    private String tourTitle;
-
     @JsonProperty("tournamentTitle")
     private String tournamentTitle;
-
-    @JsonProperty("tourPlayedAt")
-    private String tourPlayedAt;
-
-    @JsonProperty("tournamentPlayedAt")
-    private String tournamentPlayedAt;
 
     public Question() {
     }
@@ -53,10 +44,7 @@ public class Question {
                 ", authors='" + authors + '\'' +
                 ", sources='" + sources + '\'' +
                 ", comments='" + comments + '\'' +
-                ", tourTitle='" + tourTitle + '\'' +
                 ", tournamentTitle='" + tournamentTitle + '\'' +
-                ", tourPlayedAt='" + tourPlayedAt + '\'' +
-                ", tournamentPlayedAt='" + tournamentPlayedAt + '\'' +
                 '}';
     }
 }
