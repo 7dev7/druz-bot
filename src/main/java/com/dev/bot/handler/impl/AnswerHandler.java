@@ -1,14 +1,20 @@
-package com.dev.service;
+package com.dev.bot.handler.impl;
 
+import com.dev.bot.handler.api.Handler;
 import com.dev.bot.message.MessageTemplate;
 import com.dev.domain.model.Question;
 import com.dev.domain.repository.State;
 import com.dev.domain.repository.UserManager;
 import org.telegram.telegrambots.api.objects.Message;
 
-public class AnswerService {
-    public String handleAnswer(Message message) {
-        UserManager userManager = UserManager.getInstance();
+public class AnswerHandler implements Handler {
+    private final UserManager userManager;
+
+    public AnswerHandler() {
+        this.userManager = UserManager.getInstance();
+    }
+
+    public String handle(Message message) {
         Integer userId = message.getFrom().getId();
         String userAnswer = message.getText();
         Question question = userManager.getUserCurrentQuestion(userId);

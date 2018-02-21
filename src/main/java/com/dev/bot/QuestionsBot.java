@@ -2,8 +2,8 @@ package com.dev.bot;
 
 import com.dev.bot.command.RandomQuestionCommand;
 import com.dev.bot.command.StartCommand;
-import com.dev.bot.handler.UserMessageHandler;
 import com.dev.bot.message.MessageTemplate;
+import com.dev.bot.route.Router;
 import com.dev.domain.model.config.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,13 +15,13 @@ import org.telegram.telegrambots.exceptions.TelegramApiException;
 
 public class QuestionsBot extends TelegramLongPollingCommandBot {
     private static final Logger LOG = LoggerFactory.getLogger(QuestionsBot.class);
-    private final UserMessageHandler messageHandler;
+    private final Router router;
     private final Config config;
 
     public QuestionsBot(Config config) {
         super(config.getBotUsername());
         this.config = config;
-        this.messageHandler = new UserMessageHandler();
+        this.router = new Router();
         registerHandlers();
     }
 
@@ -44,7 +44,7 @@ public class QuestionsBot extends TelegramLongPollingCommandBot {
     public void processNonCommandUpdate(Update update) {
         if (update.hasMessage()) {
             Message message = update.getMessage();
-            String msg = messageHandler.handle(message);
+            String msg = router.route(message);
 
             SendMessage sendMessage = new SendMessage();
             sendMessage.setChatId(message.getChatId());
