@@ -1,6 +1,6 @@
 package com.dev.service;
 
-import com.dev.bot.format.QuestionFormatter;
+import com.dev.bot.message.MessageTemplate;
 import com.dev.domain.model.Question;
 import com.dev.domain.repository.State;
 import com.dev.domain.repository.UserManager;
@@ -14,7 +14,7 @@ public class AnswerService {
         Question question = userManager.getUserCurrentQuestion(userId);
         userManager.setUserState(userId, State.WAIT_FOR_NEXT_QUESTION);
         return isCorrectAnswer(userAnswer, question) ?
-                QuestionFormatter.formatWinMessage(question) : QuestionFormatter.formatLoseMessage(question);
+                MessageTemplate.formatWin(question) : MessageTemplate.formatLose(question);
     }
 
     private boolean isCorrectAnswer(String userAnswer, Question question) {

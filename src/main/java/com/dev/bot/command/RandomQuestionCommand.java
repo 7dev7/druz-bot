@@ -1,6 +1,6 @@
 package com.dev.bot.command;
 
-import com.dev.bot.format.QuestionFormatter;
+import com.dev.bot.message.MessageTemplate;
 import com.dev.domain.model.Question;
 import com.dev.domain.repository.State;
 import com.dev.domain.repository.UserManager;
@@ -23,14 +23,12 @@ public class RandomQuestionCommand extends GenericCommand {
     public void execute(AbsSender absSender, User user, Chat chat, String[] arguments) {
         if (State.ANSWERING.equals(userManager.getUserState(user.getId()))) {
             Question currentQuestion = userManager.getUserCurrentQuestion(user.getId());
-            String restrictMsg = String.format("Какой быстрый. Ты еще не ответил на предыдущий вопрос:\n\n%s",
-                    QuestionFormatter.formatQuestion(currentQuestion));
-            sendMessage(absSender, chat, restrictMsg);
+            sendMessage(absSender, chat, MessageTemplate.formatProhibitedNextQuestion(currentQuestion));
             return;
         }
         Question question = randomQuestionService.retrieve();
         userManager.setUserState(user.getId(), State.ANSWERING);
         userManager.setUserCurrentQuestion(user.getId(), question);
-        sendMessage(absSender, chat, QuestionFormatter.formatQuestion(question));
+        sendMessage(absSender, chat, MessageTemplate.formatQuestion(question));
     }
 }

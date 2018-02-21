@@ -3,6 +3,7 @@ package com.dev.bot;
 import com.dev.bot.command.RandomQuestionCommand;
 import com.dev.bot.command.StartCommand;
 import com.dev.bot.handler.UserMessageHandler;
+import com.dev.bot.message.MessageTemplate;
 import com.dev.domain.model.config.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +16,7 @@ import org.telegram.telegrambots.exceptions.TelegramApiException;
 public class QuestionsBot extends TelegramLongPollingCommandBot {
     private static final Logger LOG = LoggerFactory.getLogger(QuestionsBot.class);
     private final UserMessageHandler messageHandler;
-    private Config config;
+    private final Config config;
 
     public QuestionsBot(Config config) {
         super(config.getBotUsername());
@@ -30,7 +31,7 @@ public class QuestionsBot extends TelegramLongPollingCommandBot {
         registerDefaultAction((absSender, message) -> {
             SendMessage commandUnknownMessage = new SendMessage();
             commandUnknownMessage.setChatId(message.getChatId());
-            commandUnknownMessage.setText(String.format("Даже я не знаю что '%s' значит", message.getText()));
+            commandUnknownMessage.setText(MessageTemplate.formatUnknownCmd(message.getText()));
             try {
                 absSender.execute(commandUnknownMessage);
             } catch (TelegramApiException e) {

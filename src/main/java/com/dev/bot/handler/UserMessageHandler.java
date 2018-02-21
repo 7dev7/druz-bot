@@ -1,6 +1,6 @@
 package com.dev.bot.handler;
 
-import com.dev.bot.format.QuestionFormatter;
+import com.dev.bot.message.MessageTemplate;
 import com.dev.domain.model.Question;
 import com.dev.domain.repository.State;
 import com.dev.domain.repository.UserManager;
@@ -35,7 +35,7 @@ public class UserMessageHandler {
                 case WAIT_FOR_NEXT_QUESTION:
                     return handleWaitQuestion(message, userId);
                 case NONE:
-                    return "Слабо ответить на мой вопрос? /random_question";
+                    return MessageTemplate.none();
             }
         }
         return "";
@@ -47,10 +47,10 @@ public class UserMessageHandler {
             Question question = randomQuestionService.retrieve();
             userManager.setUserState(userId, State.ANSWERING);
             userManager.setUserCurrentQuestion(userId, question);
-            return QuestionFormatter.formatQuestion(question);
+            return MessageTemplate.formatQuestion(question);
         } else {
             userManager.setUserState(userId, State.NONE);
-            return "Ясненько. Если захочешь еще поиграть только скажи мне /random_question";
+            return MessageTemplate.bye();
         }
     }
 }
