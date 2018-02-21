@@ -44,7 +44,7 @@ public class UserMessageHandler {
     private String handleWaitQuestion(Message message, Integer userId) {
         String text = message.getText().trim().toLowerCase();
         if (agreeWords.contains(text)) {
-            Question question = randomQuestionService.retrieve();
+            Question question = randomQuestionService.get();
             userManager.setUserState(userId, State.ANSWERING);
             userManager.setUserCurrentQuestion(userId, question);
             return MessageTemplate.formatQuestion(question);

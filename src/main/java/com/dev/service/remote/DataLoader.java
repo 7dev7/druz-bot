@@ -11,27 +11,21 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class QuestionDBConnection {
-    private static final Logger LOG = LoggerFactory.getLogger(QuestionDBConnection.class);
+public class DataLoader {
+    private static final Logger LOG = LoggerFactory.getLogger(DataLoader.class);
 
-    public static String loadData(String url) {
+    public static String retrieve(String url) {
         try (CloseableHttpClient client = HttpClientBuilder.create().build()) {
             HttpGet request = new HttpGet(url);
             HttpResponse response = client.execute(request);
-            BufferedReader bufReader = new BufferedReader(new InputStreamReader(
-                    response.getEntity().getContent()));
-            StringBuilder builder = new StringBuilder();
-            String line;
-            while ((line = bufReader.readLine()) != null) {
-                //ignore root tag
-                if ("<search>".equals(line) ||
-                        "</search>".equals(line)) {
-                    continue;
+            try (BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()))) {
+                StringBuilder builder = new StringBuilder();
+                String line;
+                while ((line = in.readLine()) != null) {
+                    builder.append(line);
                 }
-                builder.append(line);
-                builder.append(System.lineSeparator());
+                return builder.toString();
             }
-            return builder.toString();
         } catch (IOException e) {
             LOG.error(e.getMessage(), e);
             throw new RuntimeException(e.getMessage(), e);

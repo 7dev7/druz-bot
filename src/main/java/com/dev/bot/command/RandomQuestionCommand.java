@@ -26,7 +26,7 @@ public class RandomQuestionCommand extends GenericCommand {
             sendMessage(absSender, chat, MessageTemplate.formatProhibitedNextQuestion(currentQuestion));
             return;
         }
-        Question question = randomQuestionService.retrieve();
+        Question question = randomQuestionService.get();
         userManager.setUserState(user.getId(), State.ANSWERING);
         userManager.setUserCurrentQuestion(user.getId(), question);
         sendMessage(absSender, chat, MessageTemplate.formatQuestion(question));
