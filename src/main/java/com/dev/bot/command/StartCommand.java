@@ -17,7 +17,7 @@ public class StartCommand extends GenericCommand {
 
     @Override
     public void execute(AbsSender absSender, User user, Chat chat, String[] arguments) {
-        userManager.setUserState(user.getId(), State.NONE);
+        userManager.setUserState(user.getId(), State.DATE_CHOOSING);
         sendMessage(absSender, chat, MessageTemplate.formatGreetings(user));
     }
 }

@@ -13,6 +13,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 
+//TODO refactor this
 public class UserMessageHandler {
     private final UserManager userManager;
     private final AnswerService answerService;
@@ -34,6 +35,8 @@ public class UserMessageHandler {
                     return answerService.handleAnswer(message);
                 case WAIT_FOR_NEXT_QUESTION:
                     return handleWaitQuestion(message, userId);
+                case DATE_CHOOSING:
+                    return handleDateChoosing(message, userId);
                 case NONE:
                     return MessageTemplate.none();
             }
@@ -41,6 +44,30 @@ public class UserMessageHandler {
         return "";
     }
 
+    //TODO move out to separate class
+    private String handleDateChoosing(Message message, Integer userId) {
+        String[] years = message.getText().trim().split("-");
+        if (years.length != 2) {
+            return MessageTemplate.incorrectYearFormat();
+        } else {
+            String fYear = years[0].trim();
+            String tYear = years[1].trim();
+            if (fYear.isEmpty() || tYear.isEmpty()) {
+                return MessageTemplate.incorrectYearFormat();
+            }
+            try {
+                Integer fromYear = Integer.valueOf(fYear);
+                Integer toYear = Integer.valueOf(tYear);
+                userManager.setUserState(userId, State.NONE);
+                //TODO store data
+                return MessageTemplate.approvedYear();
+            } catch (NumberFormatException e) {
+                return MessageTemplate.yearContainsNonDigit();
+            }
+        }
+    }
+
+    //TODO move out to separate class
     private String handleWaitQuestion(Message message, Integer userId) {
         String text = message.getText().trim().toLowerCase();
         if (agreeWords.contains(text)) {

@@ -29,8 +29,20 @@ public class MessageTemplate {
     }
 
     public static String formatGreetings(User user) {
-        return String.format("Приветствую, %s %s!\n\n Если хочешь хорошенько подумать жмакни /random_question",
+        return String.format("Приветствую, %s %s!\n\nВведи временной промежуток вопросов [гггг - гггг]:",
                 user.getFirstName(), user.getLastName() == null ? "" : user.getLastName());
+    }
+
+    public static String incorrectYearFormat() {
+        return "Тысяча чертей! Правильный формат: гггг - гггг";
+    }
+
+    public static String yearContainsNonDigit() {
+        return "Тысяча чертей! Введи год циферками.";
+    }
+
+    public static String approvedYear() {
+        return "Принято. Если хочешь поиграть со мной жмакни /random_question";
     }
 
     public static String none() {
