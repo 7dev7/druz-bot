@@ -17,6 +17,9 @@ public class YearParser {
             case 2:
                 fromYear = parseYear(years[0]);
                 toYear = parseYear(years[1]);
+                if (toYear < fromYear) {
+                    throw new YearParsingException(MessageTemplate.toYearLessFromYear());
+                }
                 break;
             default:
                 throw new YearParsingException(MessageTemplate.incorrectYearFormat());

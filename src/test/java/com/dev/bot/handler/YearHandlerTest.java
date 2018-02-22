@@ -88,6 +88,14 @@ public class YearHandlerTest {
         assertEquals(MessageTemplate.incorrectYearFormat(), yearHandler.handle(message));
     }
 
+    @Test()
+    public void handle_ToYearLessFromYear_Equals() {
+        when(message.getFrom()).thenReturn(user);
+        when(user.getId()).thenReturn(1);
+        when(message.getText()).thenReturn("2012 - 2011");
+        assertEquals(MessageTemplate.toYearLessFromYear(), yearHandler.handle(message));
+    }
+
     @Test
     public void handle_ChangedStateToNone_Equals() {
         when(message.getFrom()).thenReturn(user);

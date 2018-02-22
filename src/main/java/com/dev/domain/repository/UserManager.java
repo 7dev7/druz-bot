@@ -3,13 +3,13 @@ package com.dev.domain.repository;
 import com.dev.domain.model.Question;
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class UserManager {
-    private static final Map<Integer, State> states = new HashMap<>();
-    private static final Map<Integer, Question> currentQuestions = new HashMap<>();
-    private static final Map<Integer, Pair<Integer, Integer>> userToYears = new HashMap<>();
+    private static final Map<Integer, State> states = new ConcurrentHashMap<>();
+    private static final Map<Integer, Question> currentQuestions = new ConcurrentHashMap<>();
+    private static final Map<Integer, Pair<Integer, Integer>> userToYears = new ConcurrentHashMap<>();
     private static volatile UserManager instance;
 
     public static UserManager getInstance() {

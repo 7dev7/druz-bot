@@ -72,4 +72,10 @@ public class YearParserTest {
         when(message.getText()).thenReturn(" - 78aawg");
         yearParser.parse(message);
     }
+
+    @Test(expected = YearParsingException.class)
+    public void parse_ToYearLessFromYear_Exception() throws YearParsingException {
+        when(message.getText()).thenReturn("2012 - 2011");
+        yearParser.parse(message);
+    }
 }

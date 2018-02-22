@@ -1,5 +1,6 @@
 package com.dev.bot;
 
+import com.dev.bot.command.ChangeYearsCommand;
 import com.dev.bot.command.RandomQuestionCommand;
 import com.dev.bot.command.StartCommand;
 import com.dev.bot.message.MessageTemplate;
@@ -28,6 +29,7 @@ public class QuestionsBot extends TelegramLongPollingCommandBot {
     private void registerHandlers() {
         register(new RandomQuestionCommand());
         register(new StartCommand());
+        register(new ChangeYearsCommand());
         registerDefaultAction((absSender, message) -> {
             SendMessage commandUnknownMessage = new SendMessage();
             commandUnknownMessage.setChatId(message.getChatId());
