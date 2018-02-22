@@ -33,8 +33,7 @@ public class RandomQuestionService {
             from = "from_" + left + "-01-01/";
         }
         if (right != null) {
-            String monthDay = right.equals(left) ? "-12-31/" : "-01-01/";
-            to = "to_" + right + monthDay;
+            to = "to_" + right + "-12-31/";
         }
         return BASE_URL + from + to + "limit1/";
     }

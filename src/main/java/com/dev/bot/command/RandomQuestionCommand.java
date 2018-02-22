@@ -28,6 +28,10 @@ public class RandomQuestionCommand extends GenericCommand {
         }
         LOG.info("changed state to ANSWERING for user " + userId);
         Question question = randomQuestionService.get(userManager.getYearsForUser(userId));
+        if (question.getQuestion() == null) {
+            sendMessage(absSender, chat, MessageTemplate.noQuestion());
+            return;
+        }
         userManager.setUserState(userId, State.ANSWERING);
         userManager.setUserCurrentQuestion(userId, question);
         sendMessage(absSender, chat, MessageTemplate.formatQuestion(question));

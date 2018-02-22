@@ -30,12 +30,12 @@ public class MessageTemplate {
     }
 
     public static String formatGreetings(User user) {
-        return String.format("Приветствую, %s %s!\n\nВведи временной промежуток вопросов [гггг - гггг]:",
+        return String.format("Приветствую, %s %s!\n\nВведи год(а) вопросов [гггг или гггг - гггг]:",
                 user.getFirstName(), user.getLastName() == null ? "" : user.getLastName());
     }
 
     public static String incorrectYearFormat() {
-        return "Тысяча чертей! Правильный формат: гггг - гггг";
+        return "Тысяча чертей! Правильный формат: [гггг или гггг - гггг]";
     }
 
     public static String yearContainsNonDigit() {
@@ -63,6 +63,10 @@ public class MessageTemplate {
     }
 
     public static String chooseYears() {
-        return "Введи временной промежуток вопросов [гггг - гггг]:";
+        return "Введи год(а) вопросов [гггг или гггг - гггг]:";
+    }
+
+    public static String noQuestion() {
+        return "Нет подходящего вопроса:(";
     }
 }
