@@ -41,7 +41,6 @@ public class RandomQuestionService {
 
     private String loadXmlData(String url) {
         String retrieve = DataLoader.retrieve(url);
-        //dirty hack to remove root tag
-        return retrieve.substring(48, retrieve.length() - 12);
+        return retrieve.replace("<search>", "").replace("</search>", "");
     }
 }
