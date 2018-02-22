@@ -1,13 +1,15 @@
 package com.dev.domain.repository;
 
 import com.dev.domain.model.Question;
+import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class UserManager {
-    private static final Map<Integer, State> states = new HashMap<>();
-    private static final Map<Integer, Question> currentQuestions = new HashMap<>();
+    private static final Map<Integer, State> states = new ConcurrentHashMap<>();
+    private static final Map<Integer, Question> currentQuestions = new ConcurrentHashMap<>();
+    private static final Map<Integer, Pair<Integer, Integer>> userToYears = new ConcurrentHashMap<>();
     private static volatile UserManager instance;
 
     public static UserManager getInstance() {
@@ -36,5 +38,14 @@ public class UserManager {
 
     public Question getUserCurrentQuestion(Integer userId) {
         return currentQuestions.get(userId);
+    }
+
+    public void setYearsForUser(Integer userId, Pair<Integer, Integer> years) {
+        userToYears.put(userId, years);
+    }
+
+    public Pair<Integer, Integer> getYearsForUser(Integer userId) {
+        Pair<Integer, Integer> years = userToYears.get(userId);
+        return years == null ? Pair.of(null, null) : years;
     }
 }
