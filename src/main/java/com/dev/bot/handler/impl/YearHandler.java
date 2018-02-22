@@ -24,7 +24,7 @@ public class YearHandler implements Handler {
             Pair<Integer, Integer> years = yearParser.parse(message);
             Integer userId = message.getFrom().getId();
             userManager.setUserState(userId, State.NONE);
-            //TODO store data
+            userManager.setYearsForUser(userId, years);
             return MessageTemplate.approvedYears();
         } catch (YearParsingException e) {
             return e.getMessage();

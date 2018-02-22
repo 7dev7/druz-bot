@@ -27,7 +27,7 @@ public class AgreementHandler implements Handler {
         Integer userId = message.getFrom().getId();
         String text = message.getText().trim().toLowerCase();
         if (agreeWords.contains(text)) {
-            Question question = randomQuestionService.get();
+            Question question = randomQuestionService.get(userManager.getYearsForUser(userId));
             userManager.setUserState(userId, State.ANSWERING);
             userManager.setUserCurrentQuestion(userId, question);
             return MessageTemplate.formatQuestion(question);

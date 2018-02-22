@@ -21,14 +21,15 @@ public class RandomQuestionCommand extends GenericCommand {
 
     @Override
     public void execute(AbsSender absSender, User user, Chat chat, String[] arguments) {
-        if (State.ANSWERING.equals(userManager.getUserState(user.getId()))) {
-            Question currentQuestion = userManager.getUserCurrentQuestion(user.getId());
+        Integer userId = user.getId();
+        if (State.ANSWERING.equals(userManager.getUserState(userId))) {
+            Question currentQuestion = userManager.getUserCurrentQuestion(userId);
             sendMessage(absSender, chat, MessageTemplate.formatProhibitedNextQuestion(currentQuestion));
             return;
         }
-        Question question = randomQuestionService.get();
-        userManager.setUserState(user.getId(), State.ANSWERING);
-        userManager.setUserCurrentQuestion(user.getId(), question);
+        Question question = randomQuestionService.get(userManager.getYearsForUser(userId));
+        userManager.setUserState(userId, State.ANSWERING);
+        userManager.setUserCurrentQuestion(userId, question);
         sendMessage(absSender, chat, MessageTemplate.formatQuestion(question));
     }
 }

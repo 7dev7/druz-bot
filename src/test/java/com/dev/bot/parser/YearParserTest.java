@@ -32,8 +32,14 @@ public class YearParserTest {
     }
 
     @Test
-    public void parse_Correct1Year_True() throws YearParsingException {
+    public void parse_Correct1YearWithSeparator_True() throws YearParsingException {
         when(message.getText()).thenReturn("2000 -");
+        assertEquals(Pair.of(2000, null), yearParser.parse(message));
+    }
+
+    @Test
+    public void parse_Correct1Year_True() throws YearParsingException {
+        when(message.getText()).thenReturn("2000 ");
         assertEquals(Pair.of(2000, null), yearParser.parse(message));
     }
 
