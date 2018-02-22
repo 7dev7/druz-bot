@@ -5,19 +5,20 @@ import org.telegram.telegrambots.api.objects.User;
 
 public class MessageTemplate {
     public static String formatQuestion(Question question) {
-        return String.format("%s\n\n%s", question.getQuestion(), question.getTournamentTitle());
+        return String.format("%s\n\n%s", question.getQuestion().replaceAll("\\n", " "),
+                question.getTournamentTitle());
     }
 
     public static String formatWin(Question question) {
         return String.format("А ты неплох! Ответ: %s\n\n%sХочешь еще?", question.getAnswer(),
                 question.getComments() == null ? "" :
-                        "Комментарий: " + question.getComments() + "\n\n");
+                        "Комментарий: " + question.getComments().replaceAll("\\n", " ") + "\n\n");
     }
 
     public static String formatLose(Question question) {
         return String.format("Эх, не в этот раз.\n\nОтвет: %s\n\n%sХочешь еще?", question.getAnswer(),
                 question.getComments() == null ? "" :
-                        "Комментарий: " + question.getComments() + "\n\n");
+                        "Комментарий: " + question.getComments().replaceAll("\\n", " ") + "\n\n");
     }
 
     public static String formatUnknownCmd(String cmd) {

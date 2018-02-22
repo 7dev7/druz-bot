@@ -22,7 +22,7 @@ public class DataLoader {
                 StringBuilder builder = new StringBuilder();
                 String line;
                 while ((line = in.readLine()) != null) {
-                    builder.append(line);
+                    builder.append(line).append(System.lineSeparator());
                 }
                 return builder.toString();
             }
