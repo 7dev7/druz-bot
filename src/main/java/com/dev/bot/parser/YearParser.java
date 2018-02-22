@@ -5,6 +5,8 @@ import com.dev.bot.parser.exception.YearParsingException;
 import org.apache.commons.lang3.tuple.Pair;
 import org.telegram.telegrambots.api.objects.Message;
 
+import java.util.Calendar;
+
 public class YearParser {
     public Pair<Integer, Integer> parse(Message message) throws YearParsingException {
         String[] years = message.getText().trim().split("-");
@@ -28,12 +30,16 @@ public class YearParser {
     }
 
     private Integer parseYear(String rawYear) throws YearParsingException {
-        String year = rawYear.trim();
-        if (year.isEmpty()) {
+        String formattedYear = rawYear.trim();
+        if (formattedYear.isEmpty()) {
             throw new YearParsingException(MessageTemplate.incorrectYearFormat());
         }
         try {
-            return Integer.valueOf(year);
+            Integer year = Integer.valueOf(formattedYear);
+            if (year < 1990 || year > Calendar.getInstance().get(Calendar.YEAR)) {
+                throw new YearParsingException(MessageTemplate.notPossibleYear());
+            }
+            return year;
         } catch (NumberFormatException e) {
             throw new YearParsingException(MessageTemplate.yearContainsNonDigit());
         }

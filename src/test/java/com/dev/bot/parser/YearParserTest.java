@@ -78,4 +78,22 @@ public class YearParserTest {
         when(message.getText()).thenReturn("2012 - 2011");
         yearParser.parse(message);
     }
+
+    @Test(expected = YearParsingException.class)
+    public void parse_YearsInFuture_Exception() throws YearParsingException {
+        when(message.getText()).thenReturn("2020 - 2020");
+        yearParser.parse(message);
+    }
+
+    @Test(expected = YearParsingException.class)
+    public void parse_FromYearInPast_Exception() throws YearParsingException {
+        when(message.getText()).thenReturn("1989 - 2015");
+        yearParser.parse(message);
+    }
+
+    @Test(expected = YearParsingException.class)
+    public void parse_ToYearInFuture_Exception() throws YearParsingException {
+        when(message.getText()).thenReturn("2007 - 2019");
+        yearParser.parse(message);
+    }
 }

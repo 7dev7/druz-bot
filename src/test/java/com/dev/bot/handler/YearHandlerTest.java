@@ -96,6 +96,30 @@ public class YearHandlerTest {
         assertEquals(MessageTemplate.toYearLessFromYear(), yearHandler.handle(message));
     }
 
+    @Test()
+    public void handle_YearsInFuture_Equals() {
+        when(message.getFrom()).thenReturn(user);
+        when(user.getId()).thenReturn(1);
+        when(message.getText()).thenReturn("2020 - 2020");
+        assertEquals(MessageTemplate.notPossibleYear(), yearHandler.handle(message));
+    }
+
+    @Test()
+    public void handle_FromYearInPast_Equals() {
+        when(message.getFrom()).thenReturn(user);
+        when(user.getId()).thenReturn(1);
+        when(message.getText()).thenReturn("1985 - 2015");
+        assertEquals(MessageTemplate.notPossibleYear(), yearHandler.handle(message));
+    }
+
+    @Test()
+    public void handle_ToYearInFuture_Equals() {
+        when(message.getFrom()).thenReturn(user);
+        when(user.getId()).thenReturn(1);
+        when(message.getText()).thenReturn("2007 - 2019");
+        assertEquals(MessageTemplate.notPossibleYear(), yearHandler.handle(message));
+    }
+
     @Test
     public void handle_ChangedStateToNone_Equals() {
         when(message.getFrom()).thenReturn(user);

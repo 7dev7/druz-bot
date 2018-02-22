@@ -41,6 +41,10 @@ public class MessageTemplate {
         return "Тысяча чертей! Введи год циферками.";
     }
 
+    public static String notPossibleYear() {
+        return "Тысяча чертей! Год должен быть не менее 1990 и не более текущего";
+    }
+
     public static String toYearLessFromYear() {
         return "Тысяча чертей! Второй год должен быть не меньше первого";
     }
