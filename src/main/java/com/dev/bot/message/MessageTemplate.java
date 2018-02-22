@@ -41,7 +41,7 @@ public class MessageTemplate {
         return "Тысяча чертей! Введи год циферками.";
     }
 
-    public static String approvedYear() {
+    public static String approvedYears() {
         return "Принято. Если хочешь поиграть со мной жмакни /random_question";
     }
 
