@@ -1,41 +1,44 @@
 package com.dev.bot.route;
 
+import com.dev.bot.handler.api.Handler;
 import com.dev.bot.handler.impl.AgreementHandler;
 import com.dev.bot.handler.impl.AnswerHandler;
+import com.dev.bot.handler.impl.NoneHandler;
 import com.dev.bot.handler.impl.YearHandler;
-import com.dev.bot.message.MessageTemplate;
 import com.dev.domain.repository.State;
 import com.dev.domain.repository.UserManager;
 import org.telegram.telegrambots.api.objects.Message;
 
 public class Router {
-    private UserManager userManager;
-    private AnswerHandler answerHandler;
-    private YearHandler yearHandler;
-    private AgreementHandler agreementHandler;
+    private final UserManager userManager;
+    private final AnswerHandler answerHandler;
+    private final YearHandler yearHandler;
+    private final AgreementHandler agreementHandler;
+    private final NoneHandler noneHandler;
 
     public Router() {
         this.userManager = UserManager.getInstance();
         this.answerHandler = new AnswerHandler();
         this.yearHandler = new YearHandler();
         this.agreementHandler = new AgreementHandler();
+        this.noneHandler = new NoneHandler();
     }
 
-    public String route(Message message) {
+    public Handler route(Message message) {
         if (message.hasText()) {
             Integer userId = message.getFrom().getId();
             State userState = userManager.getUserState(userId);
             switch (userState) {
                 case ANSWERING:
-                    return answerHandler.handle(message);
+                    return answerHandler;
                 case WAIT_FOR_NEXT_QUESTION:
-                    return agreementHandler.handle(message);
+                    return agreementHandler;
                 case DATE_CHOOSING:
-                    return yearHandler.handle(message);
+                    return yearHandler;
                 case NONE:
-                    return MessageTemplate.none();
+                    return noneHandler;
             }
         }
-        return "";
+        return noneHandler;
     }
 }

@@ -3,6 +3,7 @@ package com.dev.bot;
 import com.dev.bot.command.ChangeYearsCommand;
 import com.dev.bot.command.RandomQuestionCommand;
 import com.dev.bot.command.StartCommand;
+import com.dev.bot.handler.api.Handler;
 import com.dev.bot.message.MessageTemplate;
 import com.dev.bot.route.Router;
 import com.dev.domain.model.config.Config;
@@ -46,7 +47,8 @@ public class QuestionsBot extends TelegramLongPollingCommandBot {
     public void processNonCommandUpdate(Update update) {
         if (update.hasMessage()) {
             Message message = update.getMessage();
-            String msg = router.route(message);
+            Handler handler = router.route(message);
+            String msg = handler.handle(message);
 
             SendMessage sendMessage = new SendMessage();
             sendMessage.setChatId(message.getChatId());
